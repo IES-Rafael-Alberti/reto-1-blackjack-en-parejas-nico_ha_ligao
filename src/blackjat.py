@@ -35,12 +35,12 @@ def suma_cartas(cartas):#esta funcion despedaza las cartas del jjugador y las su
         contador+=1
     if suma_carta > 21:
         if "A" in cartas:
-            suma_carta-=-9
+            suma_carta-=9
     return suma_carta
 
 def final_juego(rondas_ganadas):
     system("cls")
-    print("Has ganado un total de: " + str(rondas_ganadas)+ "rondas")
+    print("Has ganado un total de: " + str(rondas_ganadas)+ " rondas")
     print("Trabajo desarrollado por Nicolas De Gomar Almellones e Ivan Lopez Jimenez")
 
 def jugador1_partida(rondas_ganadas):#son los pseudosmain, es donde se guardaran todas las variables de los jugadores, partidas y estadisticas
@@ -54,6 +54,7 @@ def jugador1_partida(rondas_ganadas):#son los pseudosmain, es donde se guardaran
     cartas_maquina+=pedir_carta()
     print("las cartas de la maquina son: "+cartas_maquina+"("+str(suma_cartas(cartas_maquina))+")")
     system("cls")
+    
     while len(cartas_jugador) < 2:
         system("cls")
         print("tus carta son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
@@ -68,21 +69,21 @@ def jugador1_partida(rondas_ganadas):#son los pseudosmain, es donde se guardaran
     system("cls")
     print("tus carta son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
     print("las cartas de la maquina son: "+cartas_maquina+"("+str(suma_cartas(cartas_maquina))+")")
-    while plantarse == "S" and suma_cartas(cartas_jugador)<22:
+    while plantarse == "S" and suma_cartas(cartas_jugador)<22 and suma_cartas(cartas_maquina)<22:
         system("cls")
         print("tus cartas son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
         pedir=input("¿quieres pedir una carta mas(S) o plantarte(N)?")
         if pedir == "S":
             cartas_jugador+=pedir_carta()
         print("tus cartas son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
-        if suma_cartas(cartas_maquina) <16:
+        if suma_cartas(cartas_maquina) <= 16:
             cartas_maquina+=pedir_carta()
         if pedir=="N":
             plantarse="N"
     system("cls")
     jugador= suma_cartas(cartas_jugador)
     jugador2= suma_cartas(cartas_maquina)
-    if jugador == jugador2 and jugador > 22 and jugador2 > 22:
+    if jugador == jugador2 and jugador <= 21 and jugador2 <= 21:
         print("¡Empate!")
         print("tus carta son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
         print("las cartas de la maquina son: "+cartas_maquina+"("+str(suma_cartas(cartas_maquina))+")")
@@ -91,15 +92,6 @@ def jugador1_partida(rondas_ganadas):#son los pseudosmain, es donde se guardaran
         print("tus carta son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
         print("las cartas de la maquina son: "+cartas_maquina+"("+str(suma_cartas(cartas_maquina))+")") 
         rondas_ganadas+=1
-    elif jugador < jugador2 and jugador <= 21:
-        print("¡Gana J1 - jugador1!")
-        print("tus carta son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
-        print("las cartas de la maquina son: "+cartas_maquina+"("+str(suma_cartas(cartas_maquina))+")") 
-        rondas_ganadas+=1
-    elif jugador < jugador2 and jugador2 <= 21:
-        print("¡Gana J2 - jugador2!")
-        print("tus carta son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
-        print("las cartas de la maquina son: "+cartas_maquina+"("+str(suma_cartas(cartas_maquina))+")") 
     elif jugador > jugador2 and jugador2 <= 21:
         print("¡Gana J2 - jugador2!")
         print("tus carta son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
@@ -161,7 +153,8 @@ def jugador2_partida(rondas_ganadas):#son los pseudosmain, es donde se guardaran
     system("cls")
     print("tus carta son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
     print("las cartas de la maquina son: "+cartas_jugador2+"("+str(suma_cartas(cartas_jugador2))+")")
-    while suma_cartas(cartas_jugador)<22 and suma_cartas(cartas_jugador)<22:
+    fin = "S"
+    while fin == "S" and suma_cartas(cartas_jugador)<22 and suma_cartas(cartas_jugador)<22:
         while plantarse_jugador1 == "S" and suma_cartas(cartas_jugador)<22:
             system("cls")
             print("tus cartas"+ nombre1 +  " son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
@@ -173,35 +166,33 @@ def jugador2_partida(rondas_ganadas):#son los pseudosmain, es donde se guardaran
                 plantarse_jugador1="N"
         while plantarse_jugador2 == "S" and suma_cartas(cartas_jugador)<22:
             system("cls")
-            print("tus cartas"+ nombre2 +  " son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
+            print("tus cartas"+ nombre2 +  " son: "+cartas_jugador2+"("+str(suma_cartas(cartas_jugador2))+")")
             pedir=input("¿quieres pedir una carta mas(S) o plantarte(N)?")
             if pedir == "S":
-                cartas_jugador+=pedir_carta()
+                cartas_jugador2+=pedir_carta()
             print("tus cartas son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
             if pedir=="N":
                 plantarse_jugador2="N"
+        if plantarse_jugador1 == "N" and plantarse_jugador2 == "N":
+            fin = "N"
     system("cls")
     jugador= suma_cartas(cartas_jugador)
     jugador2= suma_cartas(cartas_jugador2)
-    if jugador == jugador2 and jugador > 22 and jugador2 > 22:
+    if jugador == jugador2 and jugador < 22 and jugador2 < 22:  
         print("¡Empate!")
         print("tus cartas "+nombre1+" son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
         print("las cartas "+nombre2+" son: "+cartas_jugador2+"("+str(suma_cartas(cartas_jugador2))+")")
-    elif jugador > jugador2 and jugador <= 21:
+    elif jugador > jugador2 and jugador <= 21: #SI jugador <= 21 and jugador > jugador2 or jugador 2 > 21
         print("¡Gana J1 - jugador1!")
         print("tus cartas "+nombre1+" son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
         print("las cartas "+nombre2+" son: "+cartas_jugador2+"("+str(suma_cartas(cartas_jugador2))+")")
         rondas_ganadas+=1
-    elif jugador < jugador2 and jugador <= 21:
+    elif jugador <= 21 and jugador > 21: #SI jugador <= 21 and jugador > jugador2 or jugador 2 > 21
         print("¡Gana J1 - jugador1!")
         print("tus cartas "+nombre1+" son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
         print("las cartas "+nombre2+" son: "+cartas_jugador2+"("+str(suma_cartas(cartas_jugador2))+")")
         rondas_ganadas+=1
     elif jugador < jugador2 and jugador2 <= 21:
-        print("¡Gana J2 - jugador2!")
-        print("tus cartas "+nombre1+" son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
-        print("las cartas "+nombre2+" son: "+cartas_jugador2+"("+str(suma_cartas(cartas_jugador2))+")")
-    elif jugador > jugador2 and jugador2 <= 21:
         print("¡Gana J2 - jugador2!")
         print("tus cartas "+nombre1+" son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
         print("las cartas "+nombre2+" son: "+cartas_jugador2+"("+str(suma_cartas(cartas_jugador2))+")") 
