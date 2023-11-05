@@ -19,7 +19,7 @@ def pedir_carta(): #esta funcion coge un valor aleatorio con random y devuelve u
     return carta
 
 
-def suma_cartas(cartas):#esta funcion despedaza las cartas del jugador y las suma una a nua y te devuelve las sumas de las cartas
+def suma_cartas(cartas):#esta funcion comprueba las cartas del jugador y las suma una a una y te devuelve las sumas de las cartas
     contador= 0
     suma_carta=0
     for i in range (1,(len(cartas)+1)):

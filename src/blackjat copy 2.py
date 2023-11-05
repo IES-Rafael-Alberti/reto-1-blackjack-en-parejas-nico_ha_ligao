@@ -120,12 +120,7 @@ def jugador1_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nom
 
 def se_pasa(cartas_jugador2,cartas_jugador,ronda2, nombre, nombre2): # OKEY
     system("cls")
-    if suma_cartas(cartas_jugador2) > 21 and suma_cartas(cartas_jugador) > 21:
-        print("RONDA " + str(ronda2))
-        print(f"J1 - {nombre} - {cartas_jugador} **se pasa**")
-        print(f"J2 - {nombre2} - {cartas_jugador2} **se pasa**")
-        input("PULSA ENTER PARA VER RESULTADOS")
-    elif suma_cartas(cartas_jugador2) > 21:
+    if suma_cartas(cartas_jugador2) > 21:
         print("RONDA " + str(ronda2))
         print(f"J1 - {nombre} - {cartas_jugador} ({str(suma_cartas(cartas_jugador))})")
         print(f"J2 - {nombre2} - {cartas_jugador2} **se pasa**")
@@ -189,10 +184,10 @@ def jugador2_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nom
             pedir=input("¿quieres pedir una carta mas(S) o plantarte(N)?")
             if pedir == "S":
                 cartas_jugador+=pedir_carta()
-            print("tus cartas son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
-            input()
+            # print("tus cartas son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
             if pedir=="N":
                 plantarse_jugador1="N"
+        se_pasa(cartas_jugador2,cartas_jugador,ronda2, nombre, nombre2)
         while plantarse_jugador2 == "S" and suma_cartas(cartas_jugador2)<22:
             system("cls")
             print(f"RONDA {ronda2}")
@@ -200,7 +195,7 @@ def jugador2_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nom
             pedir=input("¿quieres pedir una carta mas(S) o plantarte(N)?")
             if pedir == "S":
                 cartas_jugador2+=pedir_carta()
-            print("tus cartas son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
+            # print("tus cartas son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
             if pedir=="N":
                 plantarse_jugador2="N"
         se_pasa(cartas_jugador2,cartas_jugador,ronda2, nombre, nombre2)
