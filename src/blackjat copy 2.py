@@ -12,6 +12,17 @@ def reglas():#esta funcion imprime por pantalla las reglas del blackjat
     menu()
 
 
+def nombres(rondas_ganadas_jugador1,rondas_ganadas_jugador2, tipo_partida):
+    if tipo_partida == 1:
+        nombre=input("¿Quién va a ser el jugador? ")
+        nombre2= "maquina"
+        jugador1_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nombre2,tipo_partida)
+    if tipo_partida == 2:
+        nombre=input("¿Quién va a ser el jugador 1? ")
+        nombre2=input("¿Quién va a ser el jugador 2? ")
+        jugador1_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nombre2,tipo_partida)
+
+
 def pedir_carta(): #esta funcion coge un valor aleatorio con random y devuelve una letra de la cadena baraja
     baraja = "A234567890JKQ"
     numero =random.randint(0,12)
@@ -48,16 +59,29 @@ def final_juego(rondas_ganadas_jugador1, rondas_ganadas_jugador2,nombre,nombre2)
     print("el jugador "+ nombre2+" ganado un total de: " + str(rondas_ganadas_jugador2)+ " rondas") #ESTA MAL HAY QUE ARREGLAR
     print("Gracias por jugar a nuestro Blackjack.")
     print("Trabajo desarrollado por Nicolas De Gomar Almellones e Iván López Jiménez")
+    while_menu=0
+    while while_menu == 0:
+        volver_menu=input("¿Quieres volver al menu?(S/N)")
+        if volver_menu == "S":
+            system("cls")
+            menu()
+            while_menu = 1
+        elif volver_menu== "N":
+            system("cls")
+            print("Programa finalizado, dale enter para cerrar la ventana")
+            while_menu = 1
+        else:
+            print("ERROR - INTRODUCE UN DIGITO VALIDO")
+    input()
+    system("cls")
+    
 
-def jugador1_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2):#son los pseudosmain, es donde se guardaran todas las variables de los jugadores, partidas y estadisticas
-    tipo_partida=1
+def jugador1_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nombre2,tipo_partida):#son los pseudosmain, es donde se guardaran todas las variables de los jugadores, partidas y estadisticas
     pedir = ""
     ronda2 = 0
     plantarse="S"
     cartas_jugador = ""
     cartas_jugador2 = ""
-    nombre = input("¿Quién va a ser el jugador?") #introducir esta variable para que pida y que funcine xd
-    nombre2="maquina"
     cartas_jugador+=pedir_carta()
     cartas_jugador2+=pedir_carta()
     system("cls")
@@ -118,10 +142,7 @@ def ronda1(ronda2): # OKEY
 
 # ARREGLAR RONDAS DE PARTIDA DE DOS JUGADORES
 
-def jugador2_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2):#son los pseudosmain, es donde se guardaran todas las variables de los jugadores, partidas y estadisticas
-    tipo_partida=2
-    nombre=input("¿Quién va a ser el jugador 1?")
-    nombre2=input("¿Quién va a ser el jugador 2?")
+def jugador2_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nombre2,tipo_partida):#son los pseudosmain, es donde se guardaran todas las variables de los jugadores, partidas y estadisticas
     pedir = ""
     ronda2 = 0
     plantarse_jugador1="S"
@@ -239,14 +260,14 @@ def jugar_de_nuevo(rondas_ganadas_jugador1, rondas_ganadas_jugador2, tipo_partid
         if quiere_jugar_de_nuevo == "S":
             system("cls")
             if tipo_partida == 1:
-                jugador1_partida(rondas_ganadas_jugador1, rondas_ganadas_jugador2)
+                jugador1_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nombre2,tipo_partida)
             if tipo_partida == 2:
-                jugador2_partida(rondas_ganadas_jugador1, rondas_ganadas_jugador2)
+                jugador2_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nombre2,tipo_partida)
         elif quiere_jugar_de_nuevo == "N":
             final = 1
-            final_juego(rondas_ganadas_jugador1, rondas_ganadas_jugador2,nombre,nombre2)
         else:
             print("ERROR - INTRODUCE UN DIGITO VALIDO")
+    final_juego(rondas_ganadas_jugador1, rondas_ganadas_jugador2,nombre,nombre2)
 
 
 
@@ -258,13 +279,17 @@ def modo_de_juego (rondas_ganadas_jugador1,rondas_ganadas_jugador2):#esta funcio
     print("¿cuantos jugadores vais a hacer?(1/2)")
     jugadores= input() #variable jugadores, el usuario teclea el usuario teclea cuantos jugadores son 
     if jugadores == "1":#si se cumple entonces llama a una funcion(jugador1_menu()), y se configura la partida para este modo 
+        tipo_partida= 1
         system("cls")
         print("Partida configurada para 1 jugador y la maquina")
-        jugador1_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2)
+        nombres(rondas_ganadas_jugador1,rondas_ganadas_jugador2, tipo_partida)
+        #jugador1_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2)
     elif jugadores == "2":#si se cumple entonces llama a una funcion(jugador2_menu()), y se configura la partida para este modo 
+        tipo_partida= 2
         system("cls")
         print("Partida configurada para 2 jugadores")
-        jugador2_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2)
+        nombres(rondas_ganadas_jugador1,rondas_ganadas_jugador2, tipo_partida)
+        #jugador2_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2)
     else:#da un mensaje de error, y empieza de nuevo la funcion correspondiente
         print('ERROR - Por favor, introduce solo el numero de las opciones, por ejemplo si quieres la opcion (1) leer las reglas, escribe "1" sin las comillas -\nPULSA ENTER PARA EMPEZAR DE NUEVO')#mejorar el mensaje de error para que tenga sentido algo de elige 1 de un solo jugador o 2 de dos jugadores 
         input()
