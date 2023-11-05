@@ -30,7 +30,7 @@ from os import system
 #
 #
 #
-#------------------------------FUNCION COMPLETADA NECESITA SER INTEGRADA---------------------------------------------------------------------
+#------------------------------FUNCION RESULTADO FALTA RETURN SI NECESITA---------------------------------------------------------------------
 #def resultado():
 #    # Una vez terminada la partida se 
 #    #jugador1 = 24
@@ -73,7 +73,7 @@ from os import system
 
 #-------------------------------------------------------------------------------------------------------
 
-#------------------------------FUCION JUGAR DE NUEVO COMPLETADAS-----------------------------------------------------------------------------------
+#------------------------------FUCION JUGAR DE NUEVO FALTA RETURN----------------------------------------------------------------------------------
 #def jugar_de_nuevo1():
 #    final = 0
 #    while final == 0:
@@ -101,10 +101,12 @@ from os import system
 
 
 
-def ronda_1(cartas_jugador):
+def ronda_1():
     rondas = 1
+    ronda = f"RONDA {rondas}"
     while len(cartas_jugador) < 2:
         system("cls")
+        print(ronda)
         print("tus carta son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
         print("las cartas de la maquina son: "+cartas_maquina+"("+str(suma_cartas(cartas_maquina))+")")
         pedir=input("¿quieres pedir una carta mas(S) o plantarte(N)?")
@@ -114,5 +116,30 @@ def ronda_1(cartas_jugador):
         else:
             print("ERROR EN EL PRIMER TURNO DEBES DE PEDIR UNA CARTA \n PULSA ENTER PARA EMPEZAR DE NUEVO")
             input()
+    system("cls")
+    rondas += 1
+    print(ronda)
+    print("tus carta son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
+    print("las cartas de la maquina son: "+cartas_maquina+"("+str(suma_cartas(cartas_maquina))+")")
+    return rondas
 
-ronda_1()
+def rondas_2(rondas):
+    system("cls")
+    print("tus carta son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
+    print("las cartas de la maquina son: "+cartas_maquina+"("+str(suma_cartas(cartas_maquina))+")")
+    while plantarse == "S" and suma_cartas(cartas_jugador)<22 and suma_cartas(cartas_maquina)<22:
+        system("cls")
+        rondas += 1
+        print(f"RONDA {rondas}")
+        print("tus cartas son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
+        pedir=input("¿quieres pedir una carta mas(S) o plantarte(N)?")
+        if pedir == "S":
+            cartas_jugador+=pedir_carta()
+        print("tus cartas son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
+        if suma_cartas(cartas_maquina) <= 16:
+            cartas_maquina+=pedir_carta()
+        if pedir=="N":
+            plantarse="N"
+
+rondas = ronda_1()
+rondas_2(rondas)
