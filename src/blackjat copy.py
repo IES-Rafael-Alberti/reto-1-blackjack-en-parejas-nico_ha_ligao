@@ -49,7 +49,6 @@ def final_juego(rondas_ganadas):
     print("Trabajo desarrollado por Nicolas De Gomar Almellones e Iván López Jiménez")
 
 def jugador1_partida(rondas_ganadas):#son los pseudosmain, es donde se guardaran todas las variables de los jugadores, partidas y estadisticas
-#    quiere_jugar_de_nuevo=""
     pedir = ""
     ronda2 = 0
     plantarse="S"
@@ -57,7 +56,7 @@ def jugador1_partida(rondas_ganadas):#son los pseudosmain, es donde se guardaran
     cartas_maquina = ""
     nombre = input("¿Quién va a ser el jugador?") #introducir esta variable para que pida y que funcine xd
     cartas_jugador+=pedir_carta()
-    print("tus carta son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
+    print(nombre + "tus carta son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
     cartas_maquina+=pedir_carta()
     print("las cartas de la maquina son: "+cartas_maquina+"("+str(suma_cartas(cartas_maquina))+")")
     system("cls")
@@ -161,7 +160,7 @@ def jugar_de_nuevo1(rondas_ganadas): # OKEY
         quiere_jugar_de_nuevo=input("¿quieres jugar de nuevo? (S/N)")
         if quiere_jugar_de_nuevo == "S":
             jugador1_partida(rondas_ganadas)
-        if quiere_jugar_de_nuevo == "N":
+        elif quiere_jugar_de_nuevo == "N":
             final = 1
             final_juego(rondas_ganadas)
         else:
@@ -243,7 +242,6 @@ def resultado(cartas_jugador, cartas_maquina, ronda2): # OKEY
 def jugador2_partida(rondas_ganadas):#son los pseudosmain, es donde se guardaran todas las variables de los jugadores, partidas y estadisticas
     nombre1=input("¿Quién va a ser el jugador 1?")
     nombre2=input("¿Quién va a ser el jugador 2?")
-    quiere_jugar_de_nuevo="" #puede ser que esta variable sea para nada
     pedir = ""
     ronda2 = 0
     plantarse_jugador1="S"
