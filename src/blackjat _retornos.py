@@ -2,6 +2,7 @@ from os import system
 import random
 def reglas():
     """Esta funcion imprime por pantalla las reglas del blackjat."""
+    system("cls")
     print("Objetivo del juego:\n\n- Conseguir 21 puntos o plantarse con más puntos que el otro jugador.")
     print("- Si el jugador se pasa de 21, pierde automáticamente.")
     print("- Si nadie se pasa, gana el jugador con la mano más cercana a 21.")
@@ -15,12 +16,19 @@ def nombres(tipo_partida):
     """Pide los nombres de los jugadores que van a jugar cada partida y comienza la partida."""
     if tipo_partida == "1 jugador": # Si la partida es del modo un jugador preguntará el nombre del jugador y comenzará la partida
         nombre=input("¿Quién va a ser el jugador? ")
-        nombre2= "maquina"
-        return nombre,nombre2
+        return nombre
     if tipo_partida == "2 jugadores": # Si la partida es del modo dos jugadores preguntará el nombre de los jugadores y comenzará la partida
         nombre=input("¿Quién va a ser el jugador 1? ")
+        return nombre
+
+def nombres2(tipo_partida):
+    """Pide los nombres de los jugadores que van a jugar cada partida y comienza la partida."""
+    if tipo_partida == "1 jugador": # Si la partida es del modo un jugador preguntará el nombre del jugador y comenzará la partida
+        nombre2= "maquina"
+        return nombre2
+    if tipo_partida == "2 jugadores": # Si la partida es del modo dos jugadores preguntará el nombre de los jugadores y comenzará la partida
         nombre2=input("¿Quién va a ser el jugador 2? ")
-        return nombre,nombre2
+        return nombre2
 
 def numero_aleatorio():
     numero=random.randint(0,12)
@@ -86,8 +94,10 @@ def jugador1_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nom
     plantarse="S"
     cartas_jugador = ""
     cartas_jugador2 = ""
-    cartas_jugador+=pedir_carta() # Se le da un a carta al jugador 1
-    cartas_jugador2+=pedir_carta() # Se le da un a carta a la máquina
+    numero = numero_aleatorio()
+    cartas_jugador+=pedir_carta(numero) # Se le da un a carta al jugador 1
+    numero = numero_aleatorio()
+    cartas_jugador2+=pedir_carta(numero) # Se le da un a carta a la máquina
     system("cls")
     while len(cartas_jugador) < 2: # Mientras el jugador 1 solo tenga un carta se ejecutara el bucle
         system("cls")
@@ -97,8 +107,10 @@ def jugador1_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nom
         print("las cartas de la "+ nombre2+" son: "+cartas_jugador2+"("+str(suma_cartas(cartas_jugador2))+")")
         pedir=input("¿quieres pedir una carta mas(S) o plantarte(N)?").upper() # Pregunta si quiere una carta o no, en este caso el jugador debe pedir una carta obligatoriamente por lo que si no lo hace da un error.
         if pedir == "S": # Si el jugador pide una carta se le dará una carta más y saldrá del bucle
-            cartas_jugador+=pedir_carta()
-            cartas_jugador2+=pedir_carta()
+            numero = numero_aleatorio()
+            cartas_jugador+=pedir_carta(numero)
+            numero = numero_aleatorio()
+            cartas_jugador2+=pedir_carta(numero)
         else: # Si el jugador no pide una carta dará error y empezará de nuevo el bucle
             print("ERROR EN EL PRIMER TURNO DEBES DE PEDIR UNA CARTA \n PULSA ENTER PARA EMPEZAR DE NUEVO")
             input()
@@ -109,10 +121,12 @@ def jugador1_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nom
         print(nombre +"tus cartas son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
         pedir=input("¿quieres pedir una carta mas(S) o plantarte(N)?").upper() # Pregunta si quiere una carta o no, al no ser obligatoria pedir otra carta más podra elegir entre pedir otra carta o plantarse
         if pedir == "S":
-            cartas_jugador+=pedir_carta()
+            numero = numero_aleatorio()
+            cartas_jugador+=pedir_carta(numero)
         print("tus cartas son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
         if suma_cartas(cartas_jugador2) <= 16:
-            cartas_jugador2+=pedir_carta()
+            numero = numero_aleatorio()
+            cartas_jugador2+=pedir_carta(numero)
         if pedir=="N":
             plantarse="N"
     return rondas_ganadas_jugador1,rondas_ganadas_jugador2,cartas_jugador,cartas_jugador2,ronda2
@@ -139,12 +153,14 @@ def jugador2_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nom
     plantarse_jugador2="S"
     cartas_jugador = ""
     cartas_jugador2 = ""
-    cartas_jugador+=pedir_carta() # Se le da un a carta al jugador 1
+    numero = numero_aleatorio()
+    cartas_jugador+=pedir_carta(numero) # Se le da un a carta al jugador 1
     system("cls")
     ronda2 = ronda1(ronda2) # Llama a la función ronda1()
     print(f"RONDA {ronda2}")
     print("las cartas del "+nombre+" son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
-    cartas_jugador2+=pedir_carta() # Se le da un a carta al jugador 2
+    numero = numero_aleatorio()
+    cartas_jugador2+=pedir_carta(numero) # Se le da un a carta al jugador 2
     print("las cartas del "+nombre2+" son: "+cartas_jugador2+"("+str(suma_cartas(cartas_jugador2))+")")
     input("ENTER PARA EMPEZAR")
     system("cls")
@@ -154,7 +170,8 @@ def jugador2_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nom
         print("tus carta "+nombre+" son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
         pedir=input("¿quieres pedir una carta mas(S) o plantarte(N)?").upper() # Pregunta si quiere una carta o no, en este caso el jugador debe pedir una carta obligatoriamente por lo que si no lo hace da un error.
         if pedir == "S": # Si el jugador pide una carta se le dará una carta más y saldrá del bucle
-            cartas_jugador+=pedir_carta()
+            numero = numero_aleatorio()
+            cartas_jugador+=pedir_carta(numero)
         else: # Si el jugador no pide una carta dará error y empezará de nuevo el bucle
             print("ERROR EN EL PRIMER TURNO "+ nombre +  "DEBES DE PEDIR UNA CARTA \n PULSA ENTER PARA EMPEZAR DE NUEVO")
             input()
@@ -164,7 +181,8 @@ def jugador2_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nom
         print("tus carta "+nombre2+" son: "+cartas_jugador2+"("+str(suma_cartas(cartas_jugador2))+")")
         pedir2=input("¿quieres pedir una carta mas(S) o plantarte(N)?").upper() # Pregunta si quiere una carta o no, en este caso el jugador debe pedir una carta obligatoriamente por lo que si no lo hace da un error.
         if pedir2 == "S": # Si el jugador pide una carta se le dará una carta más y saldrá del bucle
-            cartas_jugador2+=pedir_carta()
+            numero = numero_aleatorio()
+            cartas_jugador2+=pedir_carta(numero)
         else: # Si el jugador no pide una carta dará error y empezará de nuevo el bucle
             print("ERROR EN EL PRIMER TURNO "+ nombre2 +  " DEBES DE PEDIR UNA CARTA \n PULSA ENTER PARA EMPEZAR DE NUEVO")
             input()
@@ -179,7 +197,8 @@ def jugador2_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nom
                 print("tus cartas "+ nombre +  " son: "+cartas_jugador+"("+str(suma_cartas(cartas_jugador))+")")
                 pedir=input("¿quieres pedir una carta mas(S) o plantarte(N)?").upper()
                 if pedir == "S":
-                    cartas_jugador+=pedir_carta()
+                    numero = numero_aleatorio()
+                    cartas_jugador+=pedir_carta(numero)
                 if pedir=="N":
                     plantarse_jugador1="N"
             if suma_cartas(cartas_jugador)>21 or suma_cartas(cartas_jugador2)>21: # Si la suma de las cartas de uno de los jugadores es mayor a 21 se ejecuta la función se_pasa y sale del bucle
@@ -194,7 +213,8 @@ def jugador2_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nom
                 print("tus cartas "+ nombre2 +  " son: "+cartas_jugador2+"("+str(suma_cartas(cartas_jugador2))+")")
                 pedir2=input("¿quieres pedir una carta mas(S) o plantarte(N)?").upper()
                 if pedir2 == "S":
-                    cartas_jugador2+=pedir_carta()
+                    numero = numero_aleatorio()
+                    cartas_jugador2+=pedir_carta(numero)
                 if pedir2=="N":
                     plantarse_jugador2="N"
                 if suma_cartas(cartas_jugador2)>21 or suma_cartas(cartas_jugador)>21:# Si la suma de las cartas de uno de los jugadores es mayor a 21 se ejecuta la función se_pasa y sale del bucle
@@ -238,9 +258,10 @@ def jugar_de_nuevo(rondas_ganadas_jugador1, rondas_ganadas_jugador2, tipo_partid
         quiere_jugar_de_nuevo=input("¿quieres jugar de nuevo? (S/N)").upper() # Pregunta si quiere jugar de nuevo
         if quiere_jugar_de_nuevo == "S": # Si responde S se ejecuta
             system("cls")
-            if tipo_partida == 1: # Si el tipo de partida que se eligió es el 1 se ejecutará la función jugador1_partida() y comenzará de nuevo la partida para un solo jugador
+            if tipo_partida == "1 jugador":
+                return "jugar de nuevo 1"# Si el tipo de partida que se eligió es el 1 se ejecutará la función jugador1_partida() y comenzará de nuevo la partida para un solo jugador
                 jugador1_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nombre2,tipo_partida,final)
-            if tipo_partida == 2: # Si el tipo de partida que se eligió es el 2 se ejecutará la función jugador2_partida() y comenzará de nuevo la partida para dos jugadores
+            if tipo_partida == "2 jugadores": # Si el tipo de partida que se eligió es el 2 se ejecutará la función jugador2_partida() y comenzará de nuevo la partida para dos jugadores
                 jugador2_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nombre2,tipo_partida,final)
         elif quiere_jugar_de_nuevo == "N": # Si responde N saldrá del bucle
             final = 1
@@ -298,24 +319,27 @@ def main(): # Llama a la función menu y comienza el programa
         rondas_ganadas_jugador1=0
         rondas_ganadas_jugador2=0
         tipo_partida=0
-        menu="S"
-        while menu=="S":
+        menus="S"
+        while menus=="S":
             modo_menu = menu()
             if modo_menu == "reglas":
                 reglas()
             if modo_menu == "modo de juego":
-                tipo_partida = modo_de_juego()
-                menu = "N"
+                tipo_partida = modo_de_juego(rondas_ganadas_jugador1,rondas_ganadas_jugador2)
+                menus = "N"
         
         partida ="S"
         if tipo_partida == "1 jugador":
-            nombre,nombre2= nombres(tipo_partida)
+            nombre= nombres(tipo_partida)
+            nombre2= nombres2(tipo_partida)
             while partida == "S":
                 rondas_ganadas_jugador1,rondas_ganadas_jugador2,cartas_jugador,cartas_jugador2,ronda2=jugador1_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nombre2,tipo_partida,final)
                 print(se_pasa(cartas_jugador2,cartas_jugador,ronda2, nombre, nombre2)) # Al salir del bucle se comprobará si las cartas del jugador o de la máquina se han pasado 
                 input("Pulsa enter para ver los resultados")
-                resultado(rondas_ganadas_jugador1, rondas_ganadas_jugador2,cartas_jugador2,cartas_jugador,ronda2, nombre, nombre2,tipo_partida,final) # Una vez la rondas terminadas se llama a la función resultado() para imprimir los resultados de la partida
+                print(resultado(rondas_ganadas_jugador1, rondas_ganadas_jugador2,cartas_jugador2,cartas_jugador,ronda2, nombre, nombre2,tipo_partida,final)) # Una vez la rondas terminadas se llama a la función resultado() para imprimir los resultados de la partida
                 partida = jugar_de_nuevo(rondas_ganadas_jugador1, rondas_ganadas_jugador2, tipo_partida,nombre,nombre2, final)
+                if partida == "jugar de nuevo 1":
+                    jugador1_partida(rondas_ganadas_jugador1,rondas_ganadas_jugador2, nombre,nombre2,tipo_partida,final)
                 final_juego(rondas_ganadas_jugador1, rondas_ganadas_jugador2,nombre,nombre2,final)
         elif tipo_partida == "2 jugadores":
             nombre,nombre2= nombres(tipo_partida)
