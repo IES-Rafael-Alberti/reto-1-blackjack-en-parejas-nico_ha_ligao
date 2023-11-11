@@ -16,6 +16,8 @@ from src.blackjat import suma_cartas
     ("50A", 16),
     ("88", 16),
     ("A83", 21),
+    ("AQQ", 21),
+    ("AAA", 21),
     ("AK8", 19),
     ("Q23", 15),
     ("JJ2", 22)
